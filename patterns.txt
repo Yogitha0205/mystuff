@@ -1,0 +1,100 @@
+I’ll break it into two parts:
+
+🔴 Common Suspicious Patterns in Crypto Transactions
+1. Fan-In (Mixing / Aggregation)
+
+What happens? Many different wallets → send funds → into a single address.
+
+Why suspicious? Criminals try to combine dirty funds into one place before moving them.
+
+Graph shape: 🔻 Funnel
+
+ A ----\
+ B ----- >  X
+ C ----/
+
+
+👉 Address X is suspicious (many inputs, one output).
+
+2. Fan-Out (Distribution / Dusting)
+
+What happens? One wallet → sends funds → to many small addresses.
+
+Why suspicious? Laundering or distributing ransomware payments.
+
+Graph shape: 🌳 Tree-like
+
+     Y
+   / | \
+  A  B  C
+
+
+👉 Address Y is suspicious (one input, many outputs).
+
+3. Peeling Chain
+
+What happens? Large wallet keeps sending small chunks out while moving the rest to itself (like peeling onions).
+
+Why suspicious? Classic laundering method (step-by-step obfuscation).
+
+Graph shape: 🔗 Chain
+
+ X ---> Y ---> Z ---> W
+  \-> small1
+      \-> small2
+
+
+👉 Each step peels off some coins to a fresh small address.
+
+4. Looping (Cycling Funds)
+
+What happens? Same funds move in circles between related addresses.
+
+Why suspicious? Trying to confuse tracing.
+
+Graph shape: 🔄 Cycle
+
+ A --> B --> C
+ ^           |
+ |-----------|
+
+
+👉 Red flag: transactions keep coming back.
+
+🖼 Neat Flow Diagram (Illustration)
+
+Here’s a conceptual flow diagram combining the above patterns:
+
+   FAN-IN              FAN-OUT               PEELING CHAIN         LOOPING
+ A    B    C            Y                     X → Y → Z → W         A → B
+   \  |  /            / | \                  | \ small1             ↑   |
+     [X]           [Y]  [B]  [C]             |  \ small2            |   v
+      |                                      v                      D ← C
+      v                                      Z
+
+
+[X] → suspicious aggregator
+
+[Y] → suspicious distributor
+
+X→Y→Z → peeling chain
+
+A→B→C→A → looping
+
+
+
+4. What You Should See
+
+Red node: The main wallet (1dice8...) you're inspecting.
+
+Orange nodes: Addresses flagged for patterns (fan-in, fan-out, peeling).
+
+Light blue nodes: Normal activity.
+
+Edges: Represent BTC flows, labeled with amount and transaction ID.
+
+You now have:
+
+A neat flow diagram showing real activity.
+
+Suspicious patterns visually highlighted.
